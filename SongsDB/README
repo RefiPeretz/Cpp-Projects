@@ -1,0 +1,49 @@
+refi950
+
+Ex2 README
+
+Design decisions
+----------------
+
+There are obviously a lot of ways to design the described application.
+After a lot of thinking and debates I decided to make it as follows:
+
+
+Main design: Rankable, Song RankableSong RankabLyricSong RankableInstrumentSong.
+These classes are the base of the ex. implement the RankableSong object
+which is Song you can Rank. and implement is sons lyric and Instrument which have
+uinque featuers and common featuers with RankableSong. Song is a father
+of Rankable Song and gives it the featuers of a Song while Rankable is also
+a father of RankableSong which gives it the featuers of rankable object
+The implementations of this classes are kind of small but the goal was
+to create a speration between rank and song for in feature thinking and
+in my opinion better design. RankableSong holds the common featuers of
+all rankable song for instance calculation of TAG score. An important
+function of RankableSong is ofcurse rankSong which do the common calculation
+of tag score for all RankableSong sons (if you call it) this function is also
+virtual so each sons will be able to enter its unique calculations.
+
+Instrument\Lyric Songs will be able to add thier special featuers.
+
+
+Parameters - is an independet class which holds the parameters of the DataBase
+including tag, bpm instrument lyric scores. We create and instance of it
+only once in SongDataBase.
+
+SongFilters - The Song Filters is indpedent class which holds only static
+functions. This functions are the actually calculations of the tag score
+instrument score etc. the functions gets the query word and the paramters
+file and know how to calcuate the score as an int value. The goal
+was to again create speration between RankableSong and the calculation itself
+So if tomarrow we will change the calculation method for tag score the
+RankbleSong class will remain untouched. another goal is redudent code
+if tomarrow we will add lyric_instrument song we will call both functions
+and save code.
+
+
+SongDataBase - kind of the manager of the ex. holds a RankableSong
+container and rank the song using the inheretance pros.
+
+SongFactory - parse and create the relevant songs.
+
+ParametersFactory - parse and create the relevant parameters.
