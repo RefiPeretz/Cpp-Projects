@@ -1,0 +1,61 @@
+refi950
+
+
+Small:
+
+=====================
+Sequential timing:
+( A  + A ): Time elapsed: 4.74e-07sec
+( A' * A ): Time elapsed: 9.49e-07sec
+=====================
+Generic Matrix mode changed to parallel mode.
+Parallel timing:
+( A  + A ): Time elapsed: 5.4029e-05sec
+( A' * A ): Time elapsed: 4.1692e-05sec
+
+
+Big:
+
+=====================
+Sequential timing:
+( A  + A ): Time elapsed: 0.00676669sec
+( A' * A ): Time elapsed: 13.322sec
+=====================
+Generic Matrix mode changed to parallel mode.
+Parallel timing:
+( A  + A ): Time elapsed: 0.0177428sec
+( A' * A ): Time elapsed: 2.85119sec
+
+
+
+Lets discuss the difference between the results:
+
+-----------------BIG-----------------------------
+
+We can see clearly that the + operation is better Sequential mode than parallel
+mode while in the * case is the other way around. After some thiking in order
+to come with some assumption why it happing, I came to the follow conclusion.
+The add operation of the thread function in + is quite naive and simple. so simple
+that the overhead caused by the thread creation overshadow the overhead of the
++ operation it self.
+Unlike + operation in * operation the thread func is more elaborate and probaly with
+greater overhead than the thread creation process. So the parallel mode is more
+efficent for the * process.
+
+
+----------------SMALL--------------------------------------
+
+In this case we can see clearly the issue we discuss in the
+BIG file section. In all the casses the Sequential mode is far
+better than the Parallel mode. Again the matrix we want to calculate
+are rather small,and the thread creation process has kind of overhead
+which ofcurse doesn't efficent on small matrix. 
+We mean even if the * operation is complex and more efficent in the
+BIG files , in small files with very few calculations the overhead
+of the threads creation just doesn't worth it. For the add operation
+the case is even clearer because even in the BIG files we saw that
+it just doesn't pay off to create threads for simple operation like add.
+Even more when we are dealing with small matrix operations!.
+
+
+
